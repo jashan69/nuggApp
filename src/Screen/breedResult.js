@@ -1,70 +1,69 @@
 import React from 'react';
- 	
-//import SvgUri from 'react-native-svg-uri'; same as image prop
-import { SvgUri } from 'react-native-svg';
-import {Image,StyleSheet, View, FlatList} from 'react-native';
-import {Text, Button} from "react-native-elements";
-import {SafeAreaView} from 'react-navigation'
-
 import useStrain from '../hooks/useStrain';
+import { View, FlatList} from 'react-native';
+import {Button} from "react-native-elements";
 import SingleResult from '../Component/singleResult';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const BreedResult = ({navigation}) => {
-    const listBreed = [{name: "Hybrid", title:"Hybrid Strains"}, { name:"Sativa", title:"Sativa Strains"}, { name:"Indica", title:"Indica Strains" }, {name:"See All", title:"See All Strains"}]
-    const [result] = useStrain();    
-    const breedType = navigation.getParam('name');
-    if(breedType==="Hybrid"||"Indica"||"Sativa")
-    {var breed = result.filter(x => x.breed === breedType)}
-        else{result}
+
+    const listBreed = [{name: "Hybrid", title:"Hybrid Strains"}, { name:"Sativa", title:"Sativa Strains"},
+    { name:"Indica", title:"Indica Strains" }] // Scroller Array
     
-    return( 
-    <SafeAreaView forceInset={{top:'always'}}>
-            <FlatList
+    const[result] = useStrain();
+
+    const breedType = navigation.getParam('name');
+    console.log( "Breed Type is :" + breedType)
+    var breed = result.filter(x => x.breed === breedType) // Filter Logic
+    return <View style={{backgroundColor:'black'}}>
+           <SafeAreaView forceInset={{top:'always'}}>
+           <View style={{alignItems:'center'}}>
+            
+            <FlatList //breed type list
+                showsHorizontalScrollIndicator={false}
                 horizontal
                 data = {listBreed}
                 keyExtractor = {(listBreed) => listBreed.name}
                 renderItem = {({item}) => {
-                    return<View style={{margin:2, marginBottom:10}}> 
+                    return<View style={{margin:4, marginBottom:10}}> 
                         <Button
+                            titleStyle={{color:'white'}}
+                            buttonStyle={{borderColor:"white", borderWidth:1}}
                             type='outline'
                             title = {item.title}
-                            onPress = {() => navigation.navigate('Breed', {name:item.name})}
+                            onPress = {() => navigation.navigate("Header", {name:item.name, screen: "Breed"})}
                         /></View>
                 }   }
-            />
-
-            <FlatList
-                style ={{}}
+            /></View>
+            <View style={{justifyContent:'center'}}>
+            <FlatList // strain info list
+                showsVerticalScrollIndicator={false}
+                removeClippedSubviews = {true}
+                maxToRenderPerBatch={6}
+                windowSize={10}
+                numColumns='2'
                 data = {breed}
-                keyExtractor = {(breed) =>breed.id}
+                keyExtractor = {(breed) =>breed.name}
                 renderItem = {({item})=>{
                     return <View>
-                        <SvgUri
-                            width="200"
-                            height="200"
-                            uri={item.imageurl}
+                        <SingleResult
+                            info = {item} 
+                            routeName = "HeaderEffect"
+                            
                         />
-                        </View>
+                    </View>
                 }   }
             />
-        {breed != 0?<Text h2>{breed.length}</Text>:<Text h2>{result.length}</Text>}
-    </SafeAreaView>)
+            </View>
+    </SafeAreaView>
+    </View>
+    
     
 };
 BreedResult.navigationOptions = () => {
     return {
-      header: () => false,
+        header: () => false,
     };
-  };
+   };
 
-const Style = StyleSheet.create(
-    {imageStyle:{
-    width:349,
-    height:200,
-    borderRadius:10,
-    }
-    
-});
-
-export default BreedResult
+export default BreedResult;

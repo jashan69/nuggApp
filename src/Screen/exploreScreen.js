@@ -1,66 +1,76 @@
 import React, {useState} from 'react';
-import {View, StyleSheet,  FlatList} from 'react-native';
-import {Text, SearchBar, Button} from 'react-native-elements';
+import {View, StyleSheet, FlatList, Text} from 'react-native';
+
 import {SafeAreaView} from 'react-navigation';
 import CollectionScroll from '../Component/collectionScroll'
+import useStrain from '../hooks/useStrain';
+import StrainScroll from '../Component/strainScroll'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { ScrollView } from 'react-native-gesture-handler';
+
 
 
 
 
 
 const ExploreScreen = () => {
-    const weedname = [{name:"Purple Haze"}, {name:"Khalifa Kush"}, {name:"OG Kush"}, {name:"Pineapple Express"}, {name:"Lemon Haze"}];
-    const weedname2 = [{name:"Purple Haze"}, {name:"Khalifa Kush"}, {name:"OG Kush"}, {name:"Pineapple Express"}, {name:"Lemon Haze"}]
-    const imageSrc = [{name: "Hybrid", link:"https://www.jaarx.com/images/hybrid.png"},
-                      { name:"Sativa", link:"https://www.jaarx.com/images/sativa.png"},
-                      { name:"Indica", link:"https://www.jaarx.com/images/indica.png"}]
-    const feelingList = [{name: "Happy", link:""},
-                         {name: "Aroused", link:""},
-                         {name: "Relax", link:""},
-                         {name: "Energetic", link:""},
-                         {name: "Tingly", link:""},
-                         {name: "Hunger", link:""},
-                         {name: "Europhic", link:""},
-                         {name: "Giggly", link:""},
-                         {name: "Focused", link:""},
-                         {name: "Talkative", link:""},
-                         {name: "Sleepy", link:""},
-                         {name: "Uplifted", link:""}]
+    
+    const [result] = useStrain();
+    const imageSrc = [{name: "Hybrid", link:"https://www.jaarx.com/images/hybrid.svg"},
+                      { name:"Indica", link:"https://www.jaarx.com/images/indica.svg"},
+                      { name:"Sativa", link:"https://www.jaarx.com/images/sativa.svg"}]
+
+    const feelingList = [{name: "Relaxed", link:"https://jaarx.com/images/Group_2387.png"},
+                         {name: "Talkative", link:"https://jaarx.com/images/Group_2389.png"},
+                         {name: "Sleepy", link:"https://jaarx.com/images/Group_2390.png"},
+                         {name: "Uplifted", link:"https://jaarx.com/images/Group_2388.png"},
+                         {name: "Happy", link:"https://jaarx.com/images/Group_2392.png"},
+                         {name: "Aroused", link:"https://jaarx.com/images/Group_2393.png"},
+                         {name: "Euphoric", link:"https://jaarx.com/images/Group_2395.png"},
+                         {name: "Focused", link:"https://jaarx.com/images/Group_2391.png"},
+                         {name: "Tingly", link:"https://jaarx.com/images/Group_2394.png"},
+                         {name: "Giggly", link:"https://jaarx.com/images/Group_2397.png"},
+                         {name: "Energetic", link:"https://jaarx.com/images/Group_2396.png"}]
                       
-    const [search, setSearch] = useState('')
+   
     return (
-        <SafeAreaView forceInset={{top:'always'}}>
-            
-            <SearchBar
-                placeholder = 'Search The Strain'
-                value={search}
-                onChangeText = {(text) => setSearch(text)}
-                platform = 'ios'
-            />
-            <Text h3 style={Style.headerText}>Best Strains Around The Globe</Text>
-            <View style={Style.listStyle}>
-            <FlatList style = {{marginTop:10}}
-                data = {weedname2}
-                keyExtractor = {(weedname2) => weedname2.name }
-                renderItem = {({item}) => {
-                    return <Button title = {item.name} raised containerStyle={Style.listElement1}/>
-                }}
-            />
-            <FlatList style = {{marginTop:10}}
-                data = {weedname}
-                keyExtractor = {(weedname) => weedname.name }
-                renderItem = {({item}) => {
-                    return <Button title = {item.name} raised containerStyle = {Style.listElement2} />
-                }}
-            />
-            </View>
-            <CollectionScroll
-                arrayName = {imageSrc}
-                headerText = "Collection By Breed Type"
-            />
-            
-         </SafeAreaView>
         
+        <View style={{backgroundColor:'black'}}>
+        <SafeAreaView forceInset={{top:'always'}}>
+        <ScrollView style={{backgroundColor:'black'}}>
+        
+            <Text style={Style.headerText}>Strains Around The Globe</Text>      
+            <FlatList                                                        // Best Strain List
+                style = {{marginTop:12}}
+                data = {result}
+                showsVerticalScrollIndicator={false}
+                removeClippedSubviews = {true}
+                maxToRenderPerBatch={4}
+                windowSize = {10}
+                horizontal
+                showsHorizontalScrollIndicator = {false}
+                keyExtractor = {(result) => result.id}
+                renderItem = {({item}) => {
+                    return <StrainScroll
+                        list = {item}
+                    />
+                }}
+           />
+
+            <CollectionScroll    //Breed Type Scroll 
+                arrayName = {imageSrc}
+                headerText = "Collection By Breed"
+                routeName = "Breed"
+            />
+
+            <CollectionScroll
+                arrayName = {feelingList}
+                headerText = "Collection By Effects"
+                routeName = "Effect"
+            />
+        </ScrollView>    
+        </SafeAreaView>
+        </View>
         
     );
 };
@@ -73,21 +83,15 @@ ExploreScreen.navigationOptions = () => {
 
 const Style = StyleSheet.create({
     headerText:{
-        marginLeft:10
-    },
-    listStyle:{
-        flexDirection:"row-reverse"
-    },
-    listElement1:{
-        margin:2,
-        marginRight:10
-    },
-    listElement2:{
-        margin:2,
-        marginLeft:10
-    },
-    buttonStyle:{
-        color:'green'
+        fontFamily:'Poppins-SemiBold',
+        fontSize:hp('3.5%'),
+        marginLeft:5,
+        color:'white',
+        borderEndWidth:0,
+        borderBottomWidth:1,
+        borderBottomColor:'white',
+        padding:5,
+        marginTop:10
     }
 });
 
