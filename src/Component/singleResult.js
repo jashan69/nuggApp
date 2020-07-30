@@ -25,21 +25,21 @@ const SingleResult = ({info, navigation, routeName}) => {
     const buttonColorBreed = (list) =>{
         switch(list.breed){
             case 'Hybrid':
-                return {backgroundColor:'#4BC616', borderRadius:30 , height:40, width:130}
+                return {backgroundColor:'#00b04b', borderRadius:30 , height:40, width:130}
             case 'Sativa':
-                return {backgroundColor:'#FE002A', borderRadius:30 , height:40, width:130}
+                return {backgroundColor:'#b64fc8', borderRadius:30 , height:40, width:130}
             case 'Indica':
-                return {backgroundColor:'#A60DF3', borderRadius:30 , height:40, width:130}
+                return {backgroundColor:'#e43f5a', borderRadius:30 , height:40, width:130}
         }
     }
     const titleColorBreed = (list) => {
         switch(list.breed){
             case 'Hybrid':
-                return {fontSize:wp('4.5%'), color: '#4BC616', fontWeight:'normal'}
+                return {fontSize:wp('4.5%'), color: "white", fontWeight:'normal'}
             case 'Sativa':
-                return {fontSize:wp('4.5%'), color: '#FE002A', fontWeight:'normal'}
+                return {fontSize:wp('4.5%'), color: "white", fontWeight:'normal'}
             case 'Indica':
-                return {fontSize:wp('4.5%'), color: '#A60DF3', fontWeight:'normal'}
+                return {fontSize:wp('4.5%'), color: "white", fontWeight:'normal'}
         }
     }
     
@@ -60,6 +60,7 @@ const SingleResult = ({info, navigation, routeName}) => {
             <Button onPress={buttonNav} 
                     title={routeName==="HeaderEffect"? info.effect: info.breed}
                     buttonStyle= {buttonColorBreed(info)}
+                    titleStyle = {{fontFamily:'Poppins-Regular', color:'black'}}
                     />
             </View>
         </ElevatedView>

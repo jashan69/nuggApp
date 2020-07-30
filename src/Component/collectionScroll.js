@@ -31,19 +31,20 @@ const CollectionScroll = ({arrayName, headerText, navigation, routeName}) => {
 const Style = StyleSheet.create({
     headerStyle:{
         fontFamily:'Poppins-SemiBold',
-        fontSize:hp('3.5%'),
-        marginLeft:5,
+        fontSize:20,
+        marginLeft:7,
         color:'white',
-        borderEndWidth:0,
+        /*borderEndWidth:0,
         borderBottomWidth:1,
         borderBottomColor:'white',
-        padding:5,
+        padding:5,*/
         marginTop:10
     },
     imageStyle:{
         height:160,
         width:160,
-        margin:5
+        marginHorizontal:5,
+        marginBottom:5
     },
     imageStyle2:{
         height:195,

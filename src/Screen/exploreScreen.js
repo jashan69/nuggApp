@@ -7,6 +7,7 @@ import useStrain from '../hooks/useStrain';
 import StrainScroll from '../Component/strainScroll'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { ScrollView } from 'react-native-gesture-handler';
+import LogoHeader from '../Component/logoHeader';
 
 
 
@@ -16,6 +17,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 const ExploreScreen = () => {
     
     const [result] = useStrain();
+    const strain = result.splice(0,160)
+    console.log(strain)
     const imageSrc = [{name: "Hybrid", link:"https://www.jaarx.com/images/hybrid.svg"},
                       { name:"Indica", link:"https://www.jaarx.com/images/indica.svg"},
                       { name:"Sativa", link:"https://www.jaarx.com/images/sativa.svg"}]
@@ -35,21 +38,22 @@ const ExploreScreen = () => {
    
     return (
         
-        <View style={{backgroundColor:'black'}}>
+        <View style={{backgroundColor:'black', height:"100%", width:"100%"}}>
         <SafeAreaView forceInset={{top:'always'}}>
-        <ScrollView style={{backgroundColor:'black'}}>
+        <ScrollView style={{backgroundColor:'black'}} stickyHeaderIndices={[0]} ons>
+            <LogoHeader/>
         
             <Text style={Style.headerText}>Strains Around The Globe</Text>      
             <FlatList                                                        // Best Strain List
                 style = {{marginTop:12}}
-                data = {result}
+                data = {strain}
                 showsVerticalScrollIndicator={false}
                 removeClippedSubviews = {true}
                 maxToRenderPerBatch={4}
                 windowSize = {10}
                 horizontal
                 showsHorizontalScrollIndicator = {false}
-                keyExtractor = {(result) => result.id}
+                keyExtractor = {(strain) => strain.id}
                 renderItem = {({item}) => {
                     return <StrainScroll
                         list = {item}
@@ -84,13 +88,13 @@ ExploreScreen.navigationOptions = () => {
 const Style = StyleSheet.create({
     headerText:{
         fontFamily:'Poppins-SemiBold',
-        fontSize:hp('3.5%'),
-        marginLeft:5,
+        fontSize:20,
+        marginLeft:7,
         color:'white',
-        borderEndWidth:0,
+        /*borderEndWidth:0,
         borderBottomWidth:1,
         borderBottomColor:'white',
-        padding:5,
+        padding:5,*/
         marginTop:10
     }
 });

@@ -1,31 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import strainApi from '../api/strain'
-import {View, Text, FlatList} from 'react-native';
+import React from 'react';
+import {View,  FlatList} from 'react-native';
 import SingleResult from '../Component/singleResult';
-import Axios from 'axios';
+import useStrain from '../hooks/useStrain'
 
 
 const HeaderScreenEffect = ({navigation}) => {
-
-    const[result, setResult] = useState([])
-    useEffect(()=>{
-        const source = Axios.CancelToken.source()
-        const apiRequest = async() => {
-          try {
     
-            const response = await strainApi.get('/strain',{cancelToken:source.token,})
-            setResult(response.data)
-          }catch(e){
-            if(Axios.isCancel(e)){}else{
-              throw Error
-            }
-          }
-        }
-        apiRequest()
-        return()=>{
-          source.cancel()
-        }
-      },[])
+    const [result] = useStrain();
     
     const type = navigation.getParam('screen')
     const effectType = navigation.getParam('name')
@@ -37,6 +18,7 @@ const HeaderScreenEffect = ({navigation}) => {
     else{
     var effect = result.filter(x=>x.breed === effectType)
     }
+    console.log(effect)
 
     return(
         <View style={{justifyContent:'center', backgroundColor:'black'}}>
@@ -68,9 +50,9 @@ HeaderScreenEffect.navigationOptions = ({navigation}) => {
             backgroundColor:'#212121'
         },
         headerTitleStyle:{
-            color:'white'
+            color:'#47b880'
         },
-        headerTintColor:'white'
+        headerTintColor:'#47b880'
       };
     };
 

@@ -8,6 +8,7 @@ import MainScreen from './src/Screen/mainExplore';
 import EffectResult from './src/Screen/effectResult';
 import StrainProfile from './src/Screen/strainProfile';
 import HeaderScreenEffect from './src/Screen/headerScreenEffect';
+import SearchScreen from './src/Screen/searchScreen';
 
 import { AppLoading } from 'expo';
 
@@ -18,7 +19,9 @@ const getFonts = () => {
     'Poppins-SemiBold': require('./assets/Fonts/Poppins-SemiBold.ttf'),
     'Poppins-Medium': require('./assets/Fonts/Poppins-Medium.ttf'),
     'Poppins-Regular': require('./assets/Fonts/Poppins-Regular.ttf'),
-    'Poppins-Thin': require('./assets/Fonts/Poppins-Thin.ttf')
+    'Poppins-Thin': require('./assets/Fonts/Poppins-Thin.ttf'),
+    'Logo-Font': require('./assets/Fonts/Countryside-YdKj.ttf'),
+    'Logo-Font2': require('./assets/Fonts/CountrysideTwo-r9WO.ttf')
   })
 }
 
@@ -29,7 +32,8 @@ const navigator = createSwitchNavigator({
     Breed: BreedResult,
     Effect:EffectResult,
     Profile: StrainProfile,
-    Header: HeaderScreenEffect
+    Header: HeaderScreenEffect,
+    Search: SearchScreen
     })
 },{
   initialRouteName: 'mainFlow',

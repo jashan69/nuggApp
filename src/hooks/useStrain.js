@@ -2,7 +2,6 @@ import {useState, useEffect} from'react';
 import strainApi from '../api/strain'
 import Axios from 'axios';
 
-
 export default() => {
   const [result, setResult] = useState([])
   useEffect(()=>{
@@ -10,7 +9,7 @@ export default() => {
     const apiRequest = async() => {
       try {
 
-        const response = await strainApi.get('/strain',{cancelToken:source.token,})
+        const response = await strainApi.get('/strain',{cancelToken:source.token, timeout:0.1})
         setResult(response.data)
       }catch(error){
         if(Axios.isCancel(error)){}else{

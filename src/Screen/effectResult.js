@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, FlatList} from 'react-native';
 import {Button} from "react-native-elements";
 import {SafeAreaView} from 'react-navigation'
-import useStrain from '../hooks/useStrain';
+import strainApi from '../api/strain'
+import useStrain from '../hooks/useStrain'
 import SingleResult from '../Component/singleResult';
 
 const EffectResult = ({navigation}) => {
@@ -11,8 +12,7 @@ const EffectResult = ({navigation}) => {
         {name:"Euphoric", title:"Euphoric Strains"}, {name:"Tingly", title:"Tinglish Strains"}, {name:"Happy", title:"Happy Strains"},
         {name:"Focused", title:"Focused Strains"}, {name:"Giggly", title:"Giggly Strains"}, {name:"Energetic", title:"Energetic Strains"}] // Scrooler Array Feeling
         
-    const[result] = useStrain();
-    
+    const [result] = useStrain();
     const effectType = navigation.getParam('name');
     console.log("Effect Type is :" + effectType)
     var effect = result.filter(x => x.effect === effectType) // Filter Logic

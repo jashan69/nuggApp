@@ -11,24 +11,15 @@ const StrainScroll = ({list, navigation}) => {
     const colorBreed = (list) =>{
         switch(list.breed){
             case 'Hybrid':
-                return {backgroundColor:'#4BC616', borderRadius:30 , height:40, width:150}
+                return {backgroundColor:'#00b04b', borderRadius:30 , height:40, width:150}
             case 'Sativa':
-                return {backgroundColor:'#FE002A', borderRadius:30 , height:hp('5%'), width:150}
+                return {backgroundColor:'#e43f5a', borderRadius:30 , height:hp('5%'), width:150}
             case 'Indica':
                 return {backgroundColor:'#A60DF3', borderRadius:30 , height:40, width:150}
         }
     }
 
-    const colorBreed2 = (list) =>{
-        switch(list.breed){
-            case 'Hybrid':
-                return '#4BC616'
-            case 'Sativa':
-                return '#FE002A'
-            case 'Indica':
-                return '#A60DF3'
-        }
-    }
+    
     return(
         <TouchableOpacity onPress={() => navigation.navigate("Profile", {id:list.id})}>
         <ElevatedView elevation ={3} style={Style.containerStyle}>
@@ -37,11 +28,12 @@ const StrainScroll = ({list, navigation}) => {
                 width = {wp('65%')}
                 uri = {list.imageurl}
             />
-            <Text numberOfLines={1}  style={{fontFamily:'Poppins-Regular', fontSize:wp('5%'), color:colorBreed2(list)}}>{list.name}</Text>
+            <Text numberOfLines={1}  style={{fontFamily:'Poppins-Regular', fontSize:wp('5%'), color:"white"/*colorBreed(list)*/}}>{list.name}</Text>
             <Button
                 containerStyle = {{marginTop:4}}
                 title={list.breed}
                 buttonStyle = {colorBreed(list)}
+                titleStyle = {{fontFamily:'Poppins-Regular',color:'black'}}
             />
         </ElevatedView></TouchableOpacity>
         
@@ -53,11 +45,13 @@ const Style = StyleSheet.create({
         height:hp('45%'),
         width:wp('65%'),
         alignItems:'center',
-        margin:10,
+        marginHorizontal:10,
         borderBottomLeftRadius:20,
         borderTopRightRadius:20,
         paddingBottom:20,
-        backgroundColor:'#212121'
+        backgroundColor:'#212121',
+        marginBottom:5
+        
     }
 });
 

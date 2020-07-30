@@ -1,5 +1,6 @@
-import React from 'react';
-import useStrain from '../hooks/useStrain';
+import React, {useState, useEffect} from 'react';
+import strainApi from '../api/strain'
+import useStrain from '../hooks/useStrain'
 import { View, FlatList} from 'react-native';
 import {Button} from "react-native-elements";
 import SingleResult from '../Component/singleResult';
@@ -9,9 +10,16 @@ const BreedResult = ({navigation}) => {
 
     const listBreed = [{name: "Hybrid", title:"Hybrid Strains"}, { name:"Sativa", title:"Sativa Strains"},
     { name:"Indica", title:"Indica Strains" }] // Scroller Array
+    const [result] = useStrain();
+    /*const[result, setResult] = useState([])
+    const apiRequest = async() => {
+      const response = await strainApi.get('/strain')
+      setResult(response.data)
+    }
+    useEffect(()=>{
+      apiRequest
+    },[])*/
     
-    const[result] = useStrain();
-
     const breedType = navigation.getParam('name');
     console.log( "Breed Type is :" + breedType)
     var breed = result.filter(x => x.breed === breedType) // Filter Logic
