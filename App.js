@@ -1,16 +1,8 @@
 import React, {useState} from 'react'
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
 import * as Font from 'expo-font'
-import ExploreScreen from './src/Screen/exploreScreen';
-import BreedResult from './src/Screen/breedResult';
-import MainScreen from './src/Screen/mainExplore';
-import EffectResult from './src/Screen/effectResult';
-import StrainProfile from './src/Screen/strainProfile';
-import HeaderScreenEffect from './src/Screen/headerScreenEffect';
-import SearchScreen from './src/Screen/searchScreen';
 
 import { AppLoading } from 'expo';
+import AppNav from './navigator/appnav';
 
 const getFonts = () => {
   return Font.loadAsync({
@@ -25,27 +17,10 @@ const getFonts = () => {
   })
 }
 
-const navigator = createSwitchNavigator({
-    mainFlow:createStackNavigator({
-    Main:MainScreen,
-    Explore: ExploreScreen,
-    Breed: BreedResult,
-    Effect:EffectResult,
-    Profile: StrainProfile,
-    Header: HeaderScreenEffect,
-    Search: SearchScreen
-    })
-},{
-  initialRouteName: 'mainFlow',
-  defaultNavigationOptions: {
-    title: "Broccoli"}
-  });
-
-const App = createAppContainer(navigator);
 export default () => {
   const [fontLoaded, setFontLoaded] = useState(false)
   if(fontLoaded){
-    return <App/>
+    return <AppNav/>
   }
   else{
       return <AppLoading
